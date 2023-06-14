@@ -68,17 +68,26 @@ const createNewsTexts = (texts) => {
   return newsTexts;
 };
 
+const createNewsFont = (font) => {
+  const newsFont = document.createElement("p");
+  newsFont.classList.add("fs-3", "my-2")
+  newsFont.innerHTML = `<strong>Fonte: </strong>${font}`
+
+  return newsFont
+}
+
 const renderNews = async () => {
   const params = getQueryParams();
   const newsId = params.id;
-  const { title, subtitle, id, texts } = news[newsId - 1];
+  const { title, subtitle, id, texts, font } = news[newsId - 1];
 
   const newsHeader = createNewsHeader(title, subtitle);
   const newsImg = await createNewsImg(id);
   const newsTexts = createNewsTexts(texts);
+  const newsFont = createNewsFont(font);
 
   const newsContent = document.querySelector("#newsContent");
-  newsContent.append(newsHeader, newsImg, newsTexts);
+  newsContent.append(newsHeader, newsImg, newsTexts, newsFont);
 };
 
 window.addEventListener("load", renderNews);
